@@ -1,3 +1,3 @@
-module github.com/bootdotdev/learn-pub-sub-starter
+module github.com/absoluteKeven/go-pub-sub
 
 go 1.27.1

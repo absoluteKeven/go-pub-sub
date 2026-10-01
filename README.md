@@ -1,3 +1,3 @@
-# learn-pub-sub-starter (Peril)
+# PubSub Architecture
 
-This is the starter code used in Boot.dev's [Learn Pub/Sub](https://learn.boot.dev/learn-pub-sub) course.
+Demonstration of pub sub architecture with a simple example game of risk.

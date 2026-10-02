@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/absoluteKeven/go-pub-sub/internal/gamelogic"
+	gamelogic "github.com/absoluteKeven/go-pub-sub/internal/gamelogic"
+	"github.com/absoluteKeven/go-pub-sub/internal/pubsub"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -18,5 +19,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	gamelogic.ClientWelcome()
+	name, err := gamelogic.ClientWelcome()
+	
+	pubsub.DeclareAndBind(conn, "peril_direct", pause.username)
 }

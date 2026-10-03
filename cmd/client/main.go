@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 
 	gamelogic "github.com/absoluteKeven/go-pub-sub/internal/gamelogic"
-	"github.com/absoluteKeven/go-pub-sub/internal/pubsub"
+	pubsub "github.com/absoluteKeven/go-pub-sub/internal/pubsub"
+	routing "github.com/absoluteKeven/go-pub-sub/internal/routing"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -20,6 +23,12 @@ func main() {
 	defer conn.Close()
 
 	name, err := gamelogic.ClientWelcome()
-	
-	pubsub.DeclareAndBind(conn, "peril_direct", pause.username)
+
+	pubsub.DeclareAndBind(conn, "peril_direct", (routing.PauseKey + "." + name), routing.PauseKey, pubsub.Transient)
+
+	c := make(chan os.Signal, 1)
+
+	signal.Notify(c, os.Interrupt)
+	<-c
+	fmt.Println("Shutting gracefully.")
 }
